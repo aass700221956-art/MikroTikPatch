@@ -217,6 +217,11 @@ jobs:
     - name: Check and download missing packages
       run: |
         for pkg in $PACKAGES; do
+          if [ ! -f "$BUILD_DIR/all_packages/$pkg-$VERSION$ARCH_EXT.npk" ]; then
+            echo "⚠️ تخطي الحزمة $pkg (غير موجودة لمعمارية $ARCH)"
+            continue
+          fi
+
             PKG_FILE="${pkg}-$VERSION$ARCH_EXT.npk"
             PKG_PATH="$BUILD_DIR/all_packages/$PKG_FILE"
             if [ ! -f "$PKG_PATH" ]; then
