@@ -201,6 +201,7 @@ jobs:
             https://download.mikrotik.com/routeros/$VERSION/mikrotik-$VERSION$ARCH_EXT.iso
 
     - name: Unpack ISO
+      if: env.ARCH == 'x86' || env.ARCH == 'arm64'
       run: |
         mkdir -p $BUILD_DIR/all_packages
         mkdir -p $BUILD_DIR/iso
