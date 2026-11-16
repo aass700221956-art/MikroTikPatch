@@ -195,7 +195,7 @@ jobs:
         key: mikrotik-${{ env.VERSION }}${{ env.ARCH_EXT }}.iso
 
     - name: Get mikrotik-${{ env.VERSION }}${{ env.ARCH_EXT }}.iso
-      if: steps.cache-mikrotik-iso.outputs.cache-hit != 'true' 
+      if: steps.cache-mikrotik-iso.outputs.cache-hit != 'true' && (env.ARCH == 'x86' || env.ARCH == 'arm64')
       run: |
         wget -nv -O $BUILD_DIR/mikrotik-$VERSION$ARCH_EXT.iso \
             https://download.mikrotik.com/routeros/$VERSION/mikrotik-$VERSION$ARCH_EXT.iso
