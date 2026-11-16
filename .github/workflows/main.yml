@@ -34,6 +34,7 @@ on:
         - all
         - x86
         - arm64
+        - arm
       major_version:
         description: 'RouterOS major version'
         required: true
@@ -124,11 +125,11 @@ jobs:
               if [[ "$MAJOR_VERSION" == "v6" ]]; then
                   ARCHS='["x86"]'
               else
-                  ARCHS='["x86","arm64"]'
+                  ARCHS='["x86","arm64","arm"]'
               fi
           else
-              if [[ "$ARCH_INPUT" == "arm64" && "$MAJOR_VERSION" == "v6" ]]; then
-                  echo "ERROR: RouterOS v6 does not support arm64"
+              if [[ ("$ARCH_INPUT" == "arm64" || "$ARCH_INPUT" == "arm") && "$MAJOR_VERSION" == "v6" ]]; then
+                  echo "ERROR: RouterOS v6 does not support $ARCH_INPUT"
                   exit 1
               fi
               ARCHS=$(jq -c -n --arg arch "$ARCH_INPUT" '[$arch]')
